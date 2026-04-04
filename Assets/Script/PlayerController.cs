@@ -1,8 +1,9 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     [SerializeField] private float rotateSpeed = 5f;
     private PlayerInput _inputActions;
@@ -14,9 +15,10 @@ public class PlayerController : MonoBehaviour
     private bool _isRun;
     private bool _isWalk;
     [SerializeField] private float _speed = 1, _runSpeed = 2;
-    
+    private PhotonView _photonView;
     private void Awake()
     {
+        _photonView = GetComponentInParent<PhotonView>();
         _controller = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         _inputActions = new PlayerInput();
@@ -69,11 +71,15 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        if (!photonView.IsMine) return;
+        
         AnimateControl();
         PlayerRotate();
     }
     private void FixedUpdate()
     {
+        if (!photonView.IsMine) return;
+        
         float moveSpeed = (_isRun) ? _runSpeed : _speed;
         _controller.Move( moveSpeed * _currentMovement * Time.fixedDeltaTime);
     }
