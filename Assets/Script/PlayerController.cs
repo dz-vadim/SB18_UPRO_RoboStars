@@ -83,4 +83,24 @@ public class PlayerController : MonoBehaviourPunCallbacks
         float moveSpeed = (_isRun) ? _runSpeed : _speed;
         _controller.Move( moveSpeed * _currentMovement * Time.fixedDeltaTime);
     }
+
+    public void Respawn()
+    {
+        _controller.enabled = false;
+        transform.position = Vector3.up;
+        _controller.enabled = true;
+    }
+
+    private void Start()
+    {
+        /*if (!photonView.IsMine)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                GameObject notMyCamera = transform.GetChild(i)
+                    .GetComponent<Camera>().gameObject;
+                Destroy(notMyCamera);
+            }
+        }*/
+    }
 }

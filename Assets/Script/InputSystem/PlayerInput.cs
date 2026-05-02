@@ -145,6 +145,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeTarget"",
+                    ""type"": ""Button"",
+                    ""id"": ""359dc1e9-c378-4cf0-8159-c2873e2de67c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -312,6 +321,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""431970e1-bde7-4bc2-b9f1-97674a34026b"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeTarget"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -326,6 +346,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_CharacterControls_Use = m_CharacterControls.FindAction("Use", throwIfNotFound: true);
         m_CharacterControls_Crouch = m_CharacterControls.FindAction("Crouch", throwIfNotFound: true);
         m_CharacterControls_Run = m_CharacterControls.FindAction("Run", throwIfNotFound: true);
+        m_CharacterControls_ChangeTarget = m_CharacterControls.FindAction("ChangeTarget", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -412,6 +433,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_CharacterControls_Use;
     private readonly InputAction m_CharacterControls_Crouch;
     private readonly InputAction m_CharacterControls_Run;
+    private readonly InputAction m_CharacterControls_ChangeTarget;
     /// <summary>
     /// Provides access to input actions defined in input action map "CharacterControls".
     /// </summary>
@@ -447,6 +469,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "CharacterControls/Run".
         /// </summary>
         public InputAction @Run => m_Wrapper.m_CharacterControls_Run;
+        /// <summary>
+        /// Provides access to the underlying input action "CharacterControls/ChangeTarget".
+        /// </summary>
+        public InputAction @ChangeTarget => m_Wrapper.m_CharacterControls_ChangeTarget;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -491,6 +517,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
+            @ChangeTarget.started += instance.OnChangeTarget;
+            @ChangeTarget.performed += instance.OnChangeTarget;
+            @ChangeTarget.canceled += instance.OnChangeTarget;
         }
 
         /// <summary>
@@ -520,6 +549,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
+            @ChangeTarget.started -= instance.OnChangeTarget;
+            @ChangeTarget.performed -= instance.OnChangeTarget;
+            @ChangeTarget.canceled -= instance.OnChangeTarget;
         }
 
         /// <summary>
@@ -602,5 +634,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRun(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ChangeTarget" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeTarget(InputAction.CallbackContext context);
     }
 }
