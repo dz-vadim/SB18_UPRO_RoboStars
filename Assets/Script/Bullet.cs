@@ -17,8 +17,8 @@ public class Bullet : MonoBehaviour
         if (other.tag == "Player")
         {
             other.gameObject.GetComponent<PlayerSettings>().TakeDamage(_info.damage);
-            PhotonNetwork.Destroy(gameObject);
         }
+        PhotonNetwork.Destroy(gameObject);
     }
     public void StartMove(Vector3 direction)
     {

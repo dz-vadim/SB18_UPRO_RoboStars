@@ -23,7 +23,7 @@ public class Aim : MonoBehaviour
     {
         _inputs = new PlayerInput();
         _controller = GetComponent<CharacterController>();
-        _pv = GetComponent<PhotonView>();
+        _pv = GetComponentInParent<PhotonView>();
     }
 
     private void OnEnable()
@@ -160,7 +160,7 @@ public class Aim : MonoBehaviour
         {
             Vector3 direction = (_targetObj.transform.position - transform.position).normalized;
             GameObject temp = PhotonNetwork.Instantiate(Path.
-                Combine("Fireball"), transform.position, Quaternion.identity);
+                Combine("Fireball"), spawnPosition.position, Quaternion.identity);
             
             temp.GetComponent<Bullet>().StartMove(direction);
             Physics.IgnoreCollision(temp.GetComponent<Collider>(), GetComponent<Collider>());
