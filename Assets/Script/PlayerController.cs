@@ -95,11 +95,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (!photonView.IsMine)
         {
-            Camera cam = GetComponentInChildren<Camera>();
-            if (cam)
-            {
-                Destroy(cam.gameObject);
-            }
+            Destroy(FindObjectOfType<CameraFollow>().gameObject);
+            return;
         }
+        FindObjectOfType<CameraFollow>().SetTarget(gameObject);
     }
 }

@@ -46,4 +46,9 @@ public class CameraFollow : MonoBehaviour
         
         transform.position = Vector3.Lerp(transform.position, _currentVector, returnSpeed * Time.deltaTime);
     }
+
+    public void SetTarget(GameObject target)
+    {
+        mainCharacter = target;
+    }
 }
